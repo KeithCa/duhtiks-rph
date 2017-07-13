@@ -1,5 +1,4 @@
-'use strict';
-class spell{
+class Spell{
 
  constructor(name, type, min_dmg, max_dmg, spell_cd){
     this.name = name;
@@ -10,3 +9,5 @@ class spell{
  }
 
  }
+
+ module.exports = Spell;

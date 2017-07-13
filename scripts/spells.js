@@ -1,3 +1,6 @@
-var spell = require('../scripts/spell.js')
+var Spell = require('../scripts/spell');
+var spells = {};
+spells.firebolt = new Spell("Firebolt", "Fire", 2, 10, 15);
+console.log("In spells file, firebolt created. Firebolt cd is:" + spells.firebolt.spell_cd);
 
-var Firebolt = new spell("Firebolt", "Fire", 2, 10, 15);
+exports.spells = spells;
