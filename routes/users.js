@@ -55,17 +55,21 @@ router.post('/register', function(req, res){
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
+                        
+                        //Duh: Insert new player
+                        MongoClient.connect(url, function(err, db) {
+                            assert.equal(null, err);
+                            User.insertDocument(db, user._id, user.name, function() {
+                                db.close();
+                            });
+                        });
+		
+                        console.log("new player inserted");
+                        //end test       
+                        
 		});
 
-		//test insert player
-		MongoClient.connect(url, function(err, db) {
-		assert.equal(null, err);
-		User.insertDocument(db, function() {
-			 db.close();
-		});
-		});
-		//end
-		console.log("After player add");
+		
 		req.flash('success_msg', 'You are registered and can now login!!!');
 
 		res.redirect('/users/login');
