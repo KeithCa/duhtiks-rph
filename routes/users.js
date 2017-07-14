@@ -6,7 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 //test
 var User = require('../models/user');
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/GRPG';       
+var url = 'mongodb://localhost:27017/GRPG';
 var assert = require('assert');
 
 
@@ -37,15 +37,6 @@ router.post('/register', function(req, res){
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
         
-         //test insert player
-                MongoClient.connect(url, function(err, db) {
-                assert.equal(null, err);
-                insertDocument(db, function() {
-                   db.close();
-                });
-                });
-                //end test
-              
 
 	var errors = req.validationErrors();
 
@@ -62,7 +53,7 @@ router.post('/register', function(req, res){
                    db.close();
                 });
                 });
-                //end 
+                //end
                 console.log("After user add");
 		var newUser = new User({
 			name: name,

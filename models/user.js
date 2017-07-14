@@ -45,12 +45,12 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
     	callback(null, isMatch);
 	});
 }
-//test new player
-var insertDocument = function(db, callback) {
+
+module.exports.insertDocument = function(db, callback) {
    db.collection('players').insertOne( {
-     
-    "user_id" : "0", 
-    "loc_x" : "0", 
+
+    "user_id" : "0",
+    "loc_x" : "0",
     "loc_y" : "0"
    }, function(err, result) {
     assert.equal(err, null);
