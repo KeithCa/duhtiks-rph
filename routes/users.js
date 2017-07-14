@@ -36,25 +36,15 @@ router.post('/register', function(req, res){
 	req.checkBody('username', 'Username is required').notEmpty();
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-        
 
-	var errors = req.validationErrors();
+
+	var errors = req.getValidationResult();
 
 	if(errors){
 		res.render('register',{
 			errors:errors
 		});
 	} else {
-                console.log("Else passed");
-                //test insert player
-                MongoClient.connect(url, function(err, db) {
-                assert.equal(null, err);
-                insertDocument(db, function() {
-                   db.close();
-                });
-                });
-                //end
-                console.log("After user add");
 		var newUser = new User({
 			name: name,
 			email:email,
@@ -67,6 +57,15 @@ router.post('/register', function(req, res){
 			console.log(user);
 		});
 
+		//test insert player
+		MongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		User.insertDocument(db, function() {
+			 db.close();
+		});
+		});
+		//end
+		console.log("After player add");
 		req.flash('success_msg', 'You are registered and can now login!!!');
 
 		res.redirect('/users/login');

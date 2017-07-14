@@ -53,7 +53,6 @@ module.exports.insertDocument = function(db, callback) {
     "loc_x" : "0",
     "loc_y" : "0"
    }, function(err, result) {
-    assert.equal(err, null);
     console.log("Inserted a document into the restaurants collection.");
     callback();
   });
