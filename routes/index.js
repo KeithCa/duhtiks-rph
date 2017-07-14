@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
 
 // Get Homepage
 router.get('/', ensureAuthenticated, function(req, res){
-	console.log(User.username)
 	res.render('index');
 });
 
