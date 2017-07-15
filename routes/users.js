@@ -73,7 +73,7 @@ router.post('/register', function(req, res){
                         //end test
 
 		});
-	}
+		});
 
 
 		req.flash('success_msg', 'You are registered and can now login!!!');
