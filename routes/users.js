@@ -52,6 +52,11 @@ router.post('/register', function(req, res){
 			password: password
 		});
 
+		User.getUserByUsername(username, function(err, user){
+    	if(err) throw err;
+    	if(!user){
+    		return done(null, false, {message: 'Unknown User'});
+    	}
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
@@ -68,6 +73,7 @@ router.post('/register', function(req, res){
                         //end test
 
 		});
+	}
 
 
 		req.flash('success_msg', 'You are registered and can now login!!!');
