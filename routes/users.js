@@ -54,31 +54,31 @@ router.post('/register', function(req, res){
 
 		User.getUserByUsername(username, function(err, user){
     	if(err) throw err;
-    	if(user){
-    		req.flash('error_msg', 'Username is already taken');
-    	}else{
-		User.createUser(newUser, function(err, user){
-			if(err) throw err;
-			console.log(user);
+    	if(!user){
+				User.createUser(newUser, function(err, user){
+					if(err) throw err;
+					console.log(user);
 
-                        //Duh: Insert new player
-                        MongoClient.connect(url, function(err, db) {
-                            assert.equal(null, err);
-                            User.insertDocument(db, user._id, user.name, function() {
-                                db.close();
-                            });
-                        });
+														//Duh: Insert new player
+														MongoClient.connect(url, function(err, db) {
+																assert.equal(null, err);
+																User.insertDocument(db, user._id, user.name, function() {
+																		db.close();
+																});
+														});
 
-                        console.log("new player inserted");
-                        //end test
-												req.flash('success_msg', 'You are registered and can now login!!!');
+														console.log("new player inserted");
+														//end test
 
-												res.redirect('/users/login');
-		});}
+				});
+				req.flash('success_msg', 'You are registered and can now login!!!');
+
+				res.redirect('/users/login');
+    	}else
+			{
+				req.flash('error_msg', 'Username is already taken');
+			}
 		});
-
-
-
 	}
 });
 
