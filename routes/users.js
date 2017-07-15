@@ -56,7 +56,7 @@ router.post('/register', function(req, res){
     	if(err) throw err;
     	if(user){
     		req.flash('success_msg', 'Username is already taken');
-    	}
+    	}else{
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
@@ -72,7 +72,7 @@ router.post('/register', function(req, res){
                         console.log("new player inserted");
                         //end test
 
-		});
+		});}
 		});
 
 
