@@ -5,10 +5,12 @@ var router = express.Router();
 router.get('/', ensureAuthenticated, function(req, res){
 	res.render('index');
 	console.log("Trying to figure out session variables here" + req.user.name);
-	var x = document.getElementsByTagName("p");
-	x.innerHTML = "Hello," + req.user.name;
+
 	//this holds the full session variables to get user name it is be req.user.id
 });
+
+var x = document.getElementsByTagName("p");
+x.innerHTML = "Hello," + req.user.name;
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
