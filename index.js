@@ -16,10 +16,10 @@ mongoose.Promise = require('bluebird');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/GRPG';
+var url = 'mongodb://itadaki33:keith7195@grpg-shard-00-00-u6pl7.mongodb.net:27017,grpg-shard-00-01-u6pl7.mongodb.net:27017,grpg-shard-00-02-u6pl7.mongodb.net:27017/GRPG?ssl=true&replicaSet=GRPG-shard-0&authSource=admin';
 //test
 
-mongoose.connect('mongodb://localhost/GRPG');
+mongoose.connect(url);
 var db = mongoose.connection;
 
 var routes = require('./routes/index');

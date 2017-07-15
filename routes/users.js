@@ -6,7 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 //test
 var User = require('../models/user');
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/GRPG';
+var url = 'mongodb://itadaki33:keith7195@grpg-shard-00-00-u6pl7.mongodb.net:27017,grpg-shard-00-01-u6pl7.mongodb.net:27017,grpg-shard-00-02-u6pl7.mongodb.net:27017/GRPG?ssl=true&replicaSet=GRPG-shard-0&authSource=admin';
 var assert = require('assert');
 
 
@@ -55,7 +55,7 @@ router.post('/register', function(req, res){
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
-                        
+
                         //Duh: Insert new player
                         MongoClient.connect(url, function(err, db) {
                             assert.equal(null, err);
@@ -63,13 +63,13 @@ router.post('/register', function(req, res){
                                 db.close();
                             });
                         });
-		
+
                         console.log("new player inserted");
-                        //end test       
-                        
+                        //end test
+
 		});
 
-		
+
 		req.flash('success_msg', 'You are registered and can now login!!!');
 
 		res.redirect('/users/login');
