@@ -55,7 +55,7 @@ router.post('/register', function(req, res){
 		User.getUserByUsername(username, function(err, user){
     	if(err) throw err;
     	if(user){
-    		req.flash('success_msg', 'Username is already taken');
+    		req.flash('error_msg', 'Username is already taken');
     	}else{
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
@@ -71,14 +71,14 @@ router.post('/register', function(req, res){
 
                         console.log("new player inserted");
                         //end test
+												req.flash('success_msg', 'You are registered and can now login!!!');
 
+												res.redirect('/users/login');
 		});}
 		});
 
 
-		req.flash('success_msg', 'You are registered and can now login!!!');
 
-		res.redirect('/users/login');
 	}
 });
 
