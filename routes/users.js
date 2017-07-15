@@ -52,32 +52,36 @@ router.post('/register', function(req, res){
 			password: password
 		});
 
-		User.getUserByUsername(username, function(err, user){
-    	if(err) throw err;
-    	if(!user){
-				User.createUser(newUser, function(err, user){
-					if(err) throw err;
-					console.log(user);
+		//check if user exists
+		        User.getUserByUsername(username, function(err, username){
+		            if(username){
 
-														//Duh: Insert new player
-														MongoClient.connect(url, function(err, db) {
-																assert.equal(null, err);
-																User.insertDocument(db, user._id, user.name, function() {
-																		db.close();
-																});
-														});
+		                 console.log("match:");
+										 console.log(username);
+										 req.flash('error_msg', 'Username taken');
+										 res.redirect('/users/register');
+		            }
+		       else{
+		User.createUser(newUser, function(err, user){
+			if(err) throw err;
+			console.log(user);
 
-														console.log("new player inserted");
-														//end test
+                        //Duh: Insert new player
+                        MongoClient.connect(url, function(err, db) {
+                            assert.equal(null, err);
+                            User.insertDocument(db, user._id, user.name, function() {
+                                db.close();
+                            });
+                        });
 
-				});
-				req.flash('success_msg', 'You are registered and can now login!!!');
+                        console.log("new player inserted");
+                        //end test
 
-				res.redirect('/users/login');
-    	}else
-			{
-				req.flash('error_msg', 'Username is already taken');
-			}
+		});
+		req.flash('success_msg', 'You are registered and can now login!!!');
+
+		res.redirect('/users/login');
+	}
 		});
 	}
 });
