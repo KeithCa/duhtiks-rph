@@ -6,12 +6,15 @@ var UserSchema = mongoose.Schema({
 	username: {
 		type: String,
 		index:true
+		unique:true
 	},
 	password: {
 		type: String
 	},
 	email: {
 		type: String
+		index:true
+		unique:true
 	},
 	name: {
 		type: String
@@ -73,13 +76,13 @@ module.exports.insertDocument = function(db,user_id, pl_name, callback) {
          "item_id" : 0,
          "item_type" : 0,
          "item_name" : 0,
-         "bitem_name_ru" : 0  
+         "bitem_name_ru" : 0
      }
-       
-    
-    
-    
-    
+
+
+
+
+
    }, function(err, result) {
     console.log("player inserted");
     callback();
