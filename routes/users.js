@@ -55,7 +55,7 @@ router.post('/register', function(req, res){
 		User.getUserByUsername(username, function(err, user){
     	if(err) throw err;
     	if(user){
-    		req.flash('success_msg', 'Username is already taken'});
+    		req.flash('success_msg', 'Username is already taken');
     	}
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
