@@ -23,14 +23,12 @@ router.get('/login', function(req, res){
 
 // Register User
 router.post('/register', function(req, res){
-	var name = req.body.name;
 	var email = req.body.email;
 	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
 	// Validation
-	req.checkBody('name', 'Name is required').notEmpty();
 	req.checkBody('email', 'Email is required').notEmpty();
 	req.checkBody('email', 'Email is not valid').isEmail();
 	req.checkBody('username', 'Username is required').notEmpty();
@@ -46,7 +44,6 @@ router.post('/register', function(req, res){
 		});
 	} else {
 		var newUser = new User({
-			name: name,
 			email:email,
 			username: username,
 			password: password
@@ -55,35 +52,37 @@ router.post('/register', function(req, res){
 		//check if user exists
 		        User.getUserByUsername(username, function(err, username){
 		            if(username){
-
 		                 console.log("match:");
-										 console.log(username);
 										 req.flash('error_msg', 'Username taken');
 										 res.redirect('/users/register');
 		            }
 		       else{
+						 User.getUserByEmail(email, function(err, email){
+								 if(email){
+											console.log("match:");
+											req.flash('error_msg', 'Email already used');
+											res.redirect('/users/register');
+								 }else{
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
-			console.log(user);
+			console.log("creating user"+user);
 
                         //Duh: Insert new player
                         MongoClient.connect(url, function(err, db) {
                             assert.equal(null, err);
-                            User.insertDocument(db, user._id, user.name, function() {
+                            User.insertDocument(db, user._id, user.username, function() {
                                 db.close();
                             });
                         });
-
-                        console.log("new player inserted");
-                        //end test
-
 		});
 		req.flash('success_msg', 'You are registered and can now login!!!');
 
 		res.redirect('/users/login');
 	}
 		});
-	}
+}
+	});
+}
 });
 
 passport.use(new LocalStrategy(

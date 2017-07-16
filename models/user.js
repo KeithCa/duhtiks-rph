@@ -15,9 +15,6 @@ var UserSchema = mongoose.Schema({
 		type: String,
 		index:true,
 		unique:true
-	},
-	name: {
-		type: String
 	}
 });
 
@@ -29,7 +26,7 @@ module.exports.createUser = function(newUser, callback){
 	bcrypt.genSalt(10, function(err, salt) {
 	    bcrypt.hash(newUser.password, salt, function(err, hash) {
 	        newUser.password = hash;
-	        newUser.save(err, callback);
+	        newUser.save(callback);
 	    });
 	});
 };
