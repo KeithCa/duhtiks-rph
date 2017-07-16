@@ -5,6 +5,7 @@ var router = express.Router();
 router.get('/', ensureAuthenticated, function(req, res){
 	res.render('index', {
 	username : req.user.name // get the user out of session and pass to template
+	//can use res.send(); either
 });
 	console.log("Trying to figure out session variables here" + req.user.name);
 

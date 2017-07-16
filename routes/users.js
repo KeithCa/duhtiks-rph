@@ -10,7 +10,6 @@ var url = 'mongodb://itadaki33:keith7195@grpg-shard-00-00-u6pl7.mongodb.net:2701
 var assert = require('assert');
 
 
-
 // Register
 router.get('/register', function(req, res){
 	res.render('register');
