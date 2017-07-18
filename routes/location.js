@@ -4,15 +4,14 @@ var router = express.Router();
 
 router.get('/', function(req, res){
 	res.render('location', {
-	
-	
-});
-	console.log("location" + req.user.name);
 
-	
+
+});
+	console.log("location" + req.user.username);
+
+
 });
 
 
 
 module.exports = router;
-
