@@ -1,8 +1,11 @@
+//var express = require('express');
+//test part
 var express = require('express');
+ var ejs = require('ejs');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
+//var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -16,7 +19,7 @@ mongoose.Promise = require('bluebird');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://itadaki33:keith7195@grpg-shard-00-00-u6pl7.mongodb.net:27017,grpg-shard-00-01-u6pl7.mongodb.net:27017,grpg-shard-00-02-u6pl7.mongodb.net:27017/GRPG?ssl=true&replicaSet=GRPG-shard-0&authSource=admin';
+var url = 'mongodb://localhost:27017/loginapp';
 //test
 
 mongoose.connect(url);
@@ -24,14 +27,29 @@ var db = mongoose.connection;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var location = require('./routes/location');
 // Init App
 var app = express();
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
-app.set('view engine', 'handlebars');
+
+
+// assign the ejs engine to .html files TEST
+
+//var engines = require('consolidate');
+
+//app.engine('ejs', ejs);
+
+//app.engine('handlebars', engines.handlebars);
+
+//app.engine('handlebars', engines.handlebars);
+
+
+
+app.set('view engine', 'ejs');
+app.engine('html', ejs.renderFile);
+
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -40,6 +58,7 @@ app.use(cookieParser());
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Express Session
 app.use(session({
@@ -86,6 +105,7 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/location', location);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
