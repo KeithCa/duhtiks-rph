@@ -11,12 +11,11 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-           <% if user { %>
+           <% if(user) { %>
               <li role="presentation"><a href="/">Dashboard</a></li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>
               <li role="presentation"><a href="/location">Location</a></li>
-             <% } %>
-             <% else{ %>
+             <% } else{ %>
               <li role="presentation"><a href="/users/login">Login</a></li>
               <li role="presentation"><a href="/users/register">Register</a></li>
             <% } %>
@@ -26,16 +25,22 @@
       </div>
 
 
-      <div class="row">
+  <!--  <div class="row">
         <div class="col-lg-12">
-         <% if success_msg { %>
-            <div class="alert alert-success">{{success_msg}}</div>
+         <% if(success_msg) { %>
+            <div class="alert alert-success"><%success_msg%></div>
          <% } %>
 
-          <% if error_msg { %>
-            <div class="alert alert-danger">{{error_msg}}</div>
+          <% if(error_msg) { %>
+            <div class="alert alert-danger"><%error_msg%></div>
           <% } %>
 
-          <% if error { %>
-            <div class="alert alert-danger">{{error}}</div>
+          <% if(error) { %>
+            <div class="alert alert-danger"><%error%></div>
           <% } %>
+				</div>
+
+
+
+			       </div>
+-->

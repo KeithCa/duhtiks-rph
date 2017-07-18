@@ -3,7 +3,7 @@ var router = express.Router();
 
 // Get Homepage
 router.get('/', ensureAuthenticated, function(req, res){
-	res.render('index', {
+	res.render('index.ejs', {
 	username : req.user.name // get the user out of session and pass to template
 	//can use res.send(); either
 });

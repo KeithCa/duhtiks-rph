@@ -6,7 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 //test
 var User = require('../models/user');
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/loginapp';
+var url = 'mongodb://itadaki33:keith7195@grpg-shard-00-00-u6pl7.mongodb.net:27017,grpg-shard-00-01-u6pl7.mongodb.net:27017,grpg-shard-00-02-u6pl7.mongodb.net:27017/GRPG?ssl=true&replicaSet=GRPG-shard-0&authSource=admin';
 var assert = require('assert');
 
 
