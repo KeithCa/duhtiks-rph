@@ -10,6 +10,26 @@
 
         <script>
           var socket = io.connect('http://localhost:3000');
+          socket.emit('getMap');
+          socket.on('heresTheMap', function (response){
+  var map = response.map;
+  var html = '<table>';
+  for (var y = 0; y < map[0].length; y++){
+    html += '<tr>';
+    for (var x = 0; x < map.length; x++){
+      var cellColor = map[x][y] ? map[x][y] : 'green';
+      html += '<td style = "background-color: '+cellColor+'" onclick = "conquer('+x+', '+y+')"></td>'
+    }
+    html += '</tr>';
+  }
+  html += '</table>';
+  document.getElementById('playArea').innerHTML = html;
+});
+
+function conquer(x,y){
+  socket.emit("conquer", {x: x, y:y});
+}
+
     </script>
     <body>
 
@@ -19,7 +39,7 @@
 
              <% } %>
         </ul>
-
+        <div id='playArea'></div>
 
 
     </body>
