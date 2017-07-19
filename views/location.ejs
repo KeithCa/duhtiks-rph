@@ -1,45 +1,61 @@
 <!DOCTYPE html>
-
+<style type="text/css">
+  td {
+    width: 30px;
+    height: 30px;
+  }
+</style>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Tutorial</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <script src="/socket.io/socket.io.js"></script>
 
-        <script>
-          var socket = io.connect('http://localhost:3000');
-          socket.emit('getMap');
-          socket.on('heresTheMap', function (response){
-  var map = response.map;
-  var html = '<table>';
-  for (var y = 0; y < map[0].length; y++){
-    html += '<tr>';
-    for (var x = 0; x < map.length; x++){
-      var cellColor = map[x][y] ? map[x][y] : 'green';
-      html += '<td style = "background-color: '+cellColor+'" onclick = "conquer('+x+', '+y+')"></td>'
-    }
-    html += '</tr>';
+    <script>
+var waiting = false;
+var color = 'black';
+var socket = io('http://localhost:3000');
+socket.emit('getMap');
+socket.on('heresTheMap', function (response){
+var map = response.map;
+color = response.color;
+var html = '<table>';
+for (var y = 0; y < map[0].length; y++){
+  html += '<tr>';
+  for (var x = 0; x < map.length; x++){
+    if (map[x][y])
+      html += '<td id = "cell'+x+'-'+y+'" style = "background-color: '+map[x][y]+'" onclick = "conquer('+x+', '+y+')"></td>'
+    else
+      html += '<td id = "cell'+x+'-'+y+'" style = "background-color: green" onclick = "conquer('+x+', '+y+')"></td>'
   }
-  html += '</table>';
-  document.getElementById('playArea').innerHTML = html;
-});
-
-function conquer(x,y){
-  socket.emit("conquer", {x: x, y:y});
+  html += '</tr>';
 }
-
-    </script>
+html += '</table>';
+document.getElementById('playArea').innerHTML = html;
+});
+socket.on('conquered', function(conquerInfo){
+document.getElementById('cell'+conquerInfo.x+"-"+conquerInfo.y).style.backgroundColor = conquerInfo.color;
+});
+function conquer(x,y){
+	if (waiting)
+		return;
+	socket.emit("conquer", {x: x, y:y});
+	document.getElementById("status").innerHTML = "Recovering...";
+	document.getElementById("status").style.color = "red";
+	waiting = true;
+	setTimeout(function(){
+		document.getElementById("status").innerHTML = "Ready";
+		document.getElementById("status").style.color = "green";
+		waiting = false;
+	}, 1000);
+}
+</script>
     <body>
-
-        <ul>
-            <% for(var i=0; i<5; i++) {%>
-            <li>Tuna</li>
-
-             <% } %>
-        </ul>
-        <div id='playArea'></div>
+      <p>Click any region in the map to conquer it. Then continue conquering adjacent regions.</p>
+<div id = "status" style = "color: green">Ready</div>
+<div id = 'playArea'></div>
 
 
     </body>

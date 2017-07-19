@@ -1,11 +1,8 @@
-//var express = require('express');
-//test part
 var express = require('express');
- var ejs = require('ejs');
+var ejs = require('ejs');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -14,13 +11,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var spells = require('./scripts/spells')
-//test
-mongoose.Promise = require('bluebird');
-var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
-var ObjectId = require('mongodb').ObjectID;
+
 var url = 'mongodb://itadaki33:keith7195@grpg-shard-00-00-u6pl7.mongodb.net:27017,grpg-shard-00-01-u6pl7.mongodb.net:27017,grpg-shard-00-02-u6pl7.mongodb.net:27017/GRPG?ssl=true&replicaSet=GRPG-shard-0&authSource=admin';
-//test
 
 mongoose.connect(url);
 var db = mongoose.connection;
