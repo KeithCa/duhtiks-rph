@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<style type="text/css">
+  td {
+    width: 30px;
+    height: 30px;
+  }
+
+  .grass {
+	width: 12px;
+    height: 12px;
+    font-size: 20px;
+    text-align: center;
+	background-color: #60B566;
+}
+
+.soil {
+	width: 12px;
+    height: 12px;
+    font-size: 20px;
+    text-align: center;
+	background-color: #7D5D16;
+}
+</style>
+<html>
+    <head>
+        <title>Tutorial</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+    var socket = io('http://localhost:3000');
+    socket.emit('getMap');
+    socket.on('heresTheMap', function (response){
+var waiting = false;
+var color = 'black';
+var mapArray = <%- JSON.stringify(mapArray) %>;
+
+var html = '<table>';
+for (var y = 0; y < mapArray.length; y++) {
+  html += '<tr>';
+  for (var x = 0; x < mapArray[y].length; x++) {
+    if (mapArray[x][y] == 0)
+      html += '<td id = "cell'+x+'-'+y+'" class = "grass"></td>'
+    else
+      html += '<td id = "cell'+x+'-'+y+'" class = "soil""></td>'
+  }
+  html += '</tr>';
+}
+html += '</table>';
+document.getElementById('playArea').innerHTML = html;
+});
+
+</script>
+    <body>
+      <p>Click any region in the map to conquer it. Then continue conquering adjacent regions.</p>
+<div id = "status" style = "color: green">Ready</div>
+<div id = 'playArea'></div>
+
+
+    </body>
+</html>

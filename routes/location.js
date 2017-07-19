@@ -3,6 +3,7 @@ var router = express.Router();
 var colors = {};
 var lastActions = {};
 var model = require('../models/model');
+var map = require('../models/keith_map_model');
 router.get('/', function(req, res){
 	res.render('location', {
 });
@@ -67,11 +68,23 @@ var canConquer = function (lastAction, map, where, color){
 	}
 	return false;
 };
-
-
-
 });
 
+router.get('/keith', function(req, res){
+	res.render('keith', {
+		mapArray : map.map
+});
+var io = req.app.get('socketio');
+
+	var io = req.app.get('socketio');
+	io.on('connection', function(socket){
+		console.log('Someone connected to us');
+
+		socket.on('getMap', function(){
+			socket.emit('heresTheMap', {mapArray: map.map});
+		});
+});
+});
 
 
 
