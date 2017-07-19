@@ -34,19 +34,6 @@ var app = express();
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 
-
-// assign the ejs engine to .html files TEST
-
-//var engines = require('consolidate');
-
-//app.engine('ejs', ejs);
-
-//app.engine('handlebars', engines.handlebars);
-
-//app.engine('handlebars', engines.handlebars);
-
-
-
 app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
 
@@ -110,7 +97,10 @@ app.use('/location', location);
 // Set Port
 app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), function(){
+var server = app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
   console.log('In index firebolt test' +spells.spells.firebolt.name)
 });
+
+var io = require('socket.io')(server);
+app.set('socketio', io);
