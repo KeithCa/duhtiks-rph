@@ -1,5 +1,5 @@
 {
-  "name": "loginapp",
+  "name": "rpg",
   "version": "1.0.0",
   "description": "Simple authentication system",
   "main": "index.js",
@@ -8,9 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-  "node": "6.10.3"
+  "node": "6.10.3",
+  "npm": "3.10.10"
 },
-  "author": "Brad Traversy",
+  "author": "Duhtiks",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "*",
