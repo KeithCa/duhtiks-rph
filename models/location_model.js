@@ -98,11 +98,11 @@ module.exports.getPlayerByUsername = function(username, callback){
 
 module.exports.getLocByxy = function(loc_x,loc_y, callback){
 	var query = {"loc_x": {
-      "$gte": -1,
-      "$lte": 1
+      "$gte": loc_x - 3,
+      "$lte": loc_x + 3
     }, "loc_y": {
-        "$gte": 0,
-        "$lte": 0
+        "$gte": loc_y - 3,
+        "$lte": loc_y + 3
       } };
 	Locations.find(query, callback);
 };
