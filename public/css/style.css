@@ -2,7 +2,14 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  
+  
 }
+
+td {
+    width: 30px;
+    height: 30px;
+ }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -86,7 +93,3 @@ footer{
   margin-top:40px;
 }
 
-td {
-    width: 30px;
-    height: 30px;
-  }

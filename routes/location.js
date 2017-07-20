@@ -4,9 +4,20 @@ var colors = {};
 var lastActions = {};
 var model = require('../models/model');
 var map = require('../models/keith_map_model');
+var Locations = require('../models/location_model');
 router.get('/', function(req, res){
 	res.render('location', {
 });
+
+
+Locations.getLocByxy(0, 0, function(err, loc_x, loc_y){
+    console.log("need to sort it out");
+    
+});
+
+
+
+
 var io = req.app.get('socketio');
 io.on('connection', function(socket){
 	console.log('Someone connected to us');

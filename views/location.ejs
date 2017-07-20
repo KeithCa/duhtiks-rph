@@ -11,6 +11,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+        <style type="text/css">
+  td {
+    width: 30px;
+    height: 30px;
+  }
+</style>
+
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
@@ -53,10 +60,21 @@ function conquer(x,y){
 }
 </script>
     <body>
+<<<<<<< Updated upstream
       <p>Click any region in the map to conquer it. Then continue conquering adjacent regions.</p>
 <div id = "status" style = "color: green">Ready</div>
 <div id = 'playArea'></div>
+=======
 
+        <ul>
+            <% for(var i=0; i<5; i++) {%>
+            <li>Tuna</li>
+
+             <% } %>
+        </ul>
+>>>>>>> Stashed changes
+
+        <div id='playArea'></div>
 
     </body>
 </html>
