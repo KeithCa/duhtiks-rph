@@ -9,10 +9,13 @@ router.get('/', function(req, res){
 	res.render('location', {
 });
 
+Locations.getPlayerByUsername(req.user.username, function(err, player){
+	console.log(player);; //find way to store
+});
 
-Locations.getLocByxy(0, 0, function(err, loc_x, loc_y){
-    console.log("need to sort it out");
-    
+Locations.getLocByxy(0, 0, function(err, result){
+    console.log(result);
+
 });
 
 

@@ -14,7 +14,7 @@ var LocSchema = mongoose.Schema({
 	},
 	loc_inst: {
 		type: Number
-		
+
 	},
         loc_type: {
 		type: Number
@@ -32,16 +32,16 @@ var Locations = module.exports = mongoose.model('Locations', LocSchema);
 
 // players Schema
 var PlSchema = mongoose.Schema({
-    
-        user_id: {
-            type: ObjectId
+
+  user_id: {
+    type: ObjectId
         },
 	pl_name: {
 		type: String
 	},
 	loc_x: {
 		type: Number
-		
+
 	},
         loc_y: {
 		type: Number
@@ -60,7 +60,7 @@ var PlSchema = mongoose.Schema({
 	},
 	pl_exp: {
 		type: Number
-		
+
 	},
         pl_gold: {
 		type: Number
@@ -69,10 +69,10 @@ var PlSchema = mongoose.Schema({
 		type: Number
 	},
         equipment: {
-		r_hand_id : Number, 
-                l_hand_id : Number, 
-                chest_id : Number, 
-                boots_id : Number, 
+		r_hand_id : Number,
+                l_hand_id : Number,
+                chest_id : Number,
+                boots_id : Number,
                 helm_id : Number
 	},
         inventory: {
@@ -81,22 +81,28 @@ var PlSchema = mongoose.Schema({
                 item_name : String,
                 bitem_name_ru : String
 	}
-    
-    
-    
+
+
+
 });
 
 var Players = module.exports = mongoose.model('Players', PlSchema);
 
 
-
-
-
-module.exports.getLocByxy = function(loc_x,loc_y, callback){
-	var query = {loc_x: 0, loc_y: 0 };
-	Locations.find(query, callback);
+module.exports.getPlayerByUsername = function(username, callback){
+  console.log("in function playerby"+username);
+	var query = {pl_name: username};
+	Players.findOne(query, callback);
 };
 
 
-
-
+module.exports.getLocByxy = function(loc_x,loc_y, callback){
+	var query = {"loc_x": {
+      "$gte": -1,
+      "$lte": 1
+    }, "loc_y": {
+        "$gte": 0,
+        "$lte": 0
+      } };
+	Locations.find(query, callback);
+};

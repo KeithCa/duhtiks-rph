@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
 //test
 var User = require('../models/user');
+var Player = require('../models/location_model');
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://itadaki33:keith7195@grpg-shard-00-00-u6pl7.mongodb.net:27017,grpg-shard-00-01-u6pl7.mongodb.net:27017,grpg-shard-00-02-u6pl7.mongodb.net:27017/GRPG?ssl=true&replicaSet=GRPG-shard-0&authSource=admin';
 var assert = require('assert');
@@ -114,10 +114,10 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+  passport.authenticate('local', {failureRedirect:'/users/login',failureFlash: true}),
   function(req, res) {
-    res.redirect('/');
-  });
+				res.redirect('/');
+	  });
 
 router.get('/logout', function(req, res){
 	req.logout();

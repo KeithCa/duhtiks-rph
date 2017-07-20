@@ -7,7 +7,6 @@ router.get('/', ensureAuthenticated, function(req, res){
 	username : req.user.username // get the user out of session and pass to template
 	//can use res.send(); either
 });
-	console.log("Trying to figure out session variables here" + req.user.username);
 
 	//this holds the full session variables to get user name it is be req.user.id
 });
