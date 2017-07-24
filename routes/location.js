@@ -9,18 +9,6 @@ router.get('/', function(req, res){
 	res.render('location', {
 });
 
-Locations.getPlayerByUsername(req.user.username, function(err, player){
-	console.log(player); //find way to store
-	var pl_x = player.loc_x;
-	var pl_y = player.loc_y;
-Locations.getLocByxy(pl_x, pl_y, function(err, result){
-    console.log(result);
-});
-});
-
-
-
-
 var io = req.app.get('socketio');
 io.on('connection', function(socket){
 	console.log('Someone connected to us');
@@ -86,7 +74,6 @@ var canConquer = function (lastAction, map, where, color){
 
 router.get('/keith', function(req, res){
 	res.render('keith', {
-		mapArray : map.map
 });
 var io = req.app.get('socketio');
 
@@ -95,7 +82,13 @@ var io = req.app.get('socketio');
 		console.log('Someone connected to us');
 
 		socket.on('getMap', function(){
-			socket.emit('heresTheMap', {mapArray: map.map});
+			Locations.getPlayerByUsername(req.user.username, function(err, player){
+				var pl_x = player.loc_x;
+				var pl_y = player.loc_y;
+			Locations.getLocByxy(pl_x, pl_y, function(err, result){
+			socket.emit('heresTheMap', {result: result});
+		});
+		});
 		});
 });
 });

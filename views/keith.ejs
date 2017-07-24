@@ -5,20 +5,20 @@
     height: 30px;
   }
 
-  .grass {
-	width: 30px;
+  .player {
+ width: 30px;
     height: 30px;
     font-size: 20px;
     text-align: center;
-	background-color: #60B566;
+ background-color: #60B566;
 }
 
 .soil {
-	width: 30px;
+ width: 30px;
     height: 30px;
     font-size: 20px;
     text-align: center;
-	background-color: #7D5D16;
+ background-color: #7D5D16;
 }
 </style>
 <html>
@@ -35,14 +35,15 @@
     socket.on('heresTheMap', function (response){
 var waiting = false;
 var color = 'black';
-var mapArray = <%- JSON.stringify(mapArray) %>;
+
+var player_info = response.result;
 
 var html = '<table>';
-for (var y = 0; y < mapArray.length; y++) {
+for (var y = player_info.loc_y-3; y < player_info.loc_y+3; y++) {
   html += '<tr>';
-  for (var x = 0; x < mapArray[y].length; x++) {
-    if (mapArray[x][y] == 0)
-      html += '<td id = "cell'+x+'-'+y+'" class = "grass"></td>'
+  for (var x = player_info.loc_x-3; x < player_info.loc_x+3; x++) {
+    if (x == player_info.loc_x && y == player_info.loc_y)
+      html += '<td id = "cell'+x+'-'+y+'" class = "player"></td>'
     else
       html += '<td id = "cell'+x+'-'+y+'" class = "soil""></td>'
   }
