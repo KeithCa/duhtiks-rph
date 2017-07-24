@@ -2,10 +2,11 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
-
+var player;
 
 // location Schema
 var LocSchema = mongoose.Schema({
+       
 	loc_x: {
 		type: Number
 	},
@@ -33,8 +34,10 @@ var Locations = module.exports = mongoose.model('Locations', LocSchema);
 // players Schema
 var PlSchema = mongoose.Schema({
 
-  user_id: {
-    type: ObjectId
+       
+        user_id: {
+            type: ObjectId
+
         },
 	pl_name: {
 		type: String
@@ -91,18 +94,22 @@ var Players = module.exports = mongoose.model('Players', PlSchema);
 
 module.exports.getPlayerByUsername = function(username, callback){
   console.log("in function playerby"+username);
+  player = Players;
 	var query = {pl_name: username};
 	Players.findOne(query, callback);
 };
 
 
+
 module.exports.getLocByxy = function(loc_x,loc_y, callback){
 	var query = {"loc_x": {
+
       "$gte": loc_x - 3,
       "$lte": loc_x + 3
+
     }, "loc_y": {
         "$gte": loc_y - 3,
         "$lte": loc_y + 3
       } };
-	Locations.find(query, callback);
+  Locations.find(query, callback);
 };

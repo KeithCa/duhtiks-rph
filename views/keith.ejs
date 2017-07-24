@@ -6,11 +6,21 @@
   }
 
   .player {
- width: 30px;
+
+    width: 30px;
     height: 30px;
     font-size: 20px;
     text-align: center;
  background-color: #60B566;
+}
+
+.nothing {
+
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+ background-color: #2d2228;
 }
 
 .soil {
@@ -36,16 +46,21 @@
 var waiting = false;
 var color = 'black';
 
-var player_info = response.result;
+
+var player_info = response.pl_info;
+var loc_info = response.loc_info;
 
 var html = '<table>';
-for (var y = player_info.loc_y-3; y < player_info.loc_y+3; y++) {
+
+for (var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
   html += '<tr>';
-  for (var x = player_info.loc_x-3; x < player_info.loc_x+3; x++) {
+  for (var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
     if (x == player_info.loc_x && y == player_info.loc_y)
-      html += '<td id = "cell'+x+'-'+y+'" class = "player"></td>'
-    else
-      html += '<td id = "cell'+x+'-'+y+'" class = "soil""></td>'
+      html += '<td class = "player"></td>'
+    else if (x == loc_info.loc_x && y == loc_info.loc_y)
+      html += '<td class = "soil"></td>'
+     else 
+        html += '<td class = "nothing"></td>'
   }
   html += '</tr>';
 }
