@@ -1,9 +1,20 @@
-<!DOCTYPE html>
+<% include layouts/header %>
 <style type="text/css">
   td {
     width: 30px;
     height: 30px;
   }
+
+  button{
+  height:25px;
+  width:50px;
+}
+#up{
+  margin-left: 25px;
+}
+#down{
+  margin-left: 25px;
+}
 
   .player {
 
@@ -47,61 +58,61 @@
 
 var player_info = response.pl_info;
 var loc_info = response.loc_info;
- 
+
 var is_there = 0;
 
 var html = '<table>';
 for(var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
-    
   html += '<tr>';
-
   for(var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
     is_there = 0;
-    
-    
     if(is_there == 0){
         if(x == player_info.loc_x && y == player_info.loc_y) {
         is_there = 1;
-       
-      html += '<td class = "player"></td>'
-      
+      html += '<td id = "cell'+x+'-'+y+'" class = "player"></td>'
       }
-     } 
+     }
      if(is_there == 0){
-       
         for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
-    
-           
             if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){
                 is_there = 1;
-                
-                html += '<td class = "soil"></td>'
-         
+                html += '<td id = "cell'+x+'-'+y+'" class = "soil"></td>'
             }
-
         }
-    } 
+    }
     if(is_there==0) {
         is_there = 1;
-       
-        html += '<td class = "nothing"></td>'
-        
+        html += '<td id = "cell'+x+'-'+y+'"class = "nothing"></td>'
     }
-  
-  
-
 }
 html += '</tr>';
 }
 html += '</table>';
 document.getElementById('playArea').innerHTML = html;
+
+
+function move(direction){
+  if(direction=="up"){
+//need to figure out this
+  }
+}
+
+
 });
 
 </script>
     <body>
-      <p>test</p>
 <div id = 'playArea'></div>
+<div id = 'moveButtons'>
+  <button type = "button" id ="up" onclick="move(this)" >Up</button>
+  <div id ="leftright">
+  <button type = "button" id ="left" onclick="move(this)">Left</button><button type = "button" id ="right" onclick="move(this)">Right</button>
+</div>
+  <button type = "button" id ="down" onclick="move(this)">Down</button>
+</div>
+
 
 
     </body>
 </html>
+<% include layouts/footer %>
