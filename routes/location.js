@@ -10,8 +10,10 @@ router.get('/', function(req, res){
 });
 
 Locations.getPlayerByUsername(req.user.username, function(err, player){
-	console.log(player);; //find way to store
-Locations.getLocByxy(player.loc_x, player.loc_y, function(err, result){
+	console.log(player); //find way to store
+	var pl_x = player.loc_x;
+	var pl_y = player.loc_y;
+Locations.getLocByxy(pl_x, pl_y, function(err, result){
     console.log(result);
 });
 });
