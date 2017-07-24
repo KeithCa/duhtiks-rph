@@ -43,26 +43,55 @@
     var socket = io('http://localhost:3000');
     socket.emit('getMap');
     socket.on('heresTheMap', function (response){
-var waiting = false;
-var color = 'black';
 
 
 var player_info = response.pl_info;
 var loc_info = response.loc_info;
+ 
+var is_there = 0;
 
 var html = '<table>';
-
-for (var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
+for(var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
+    
   html += '<tr>';
-  for (var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
-    if (x == player_info.loc_x && y == player_info.loc_y)
+
+  for(var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
+    is_there = 0;
+    
+    
+    if(is_there == 0){
+        if(x == player_info.loc_x && y == player_info.loc_y) {
+        is_there = 1;
+       
       html += '<td class = "player"></td>'
-    else if (x == loc_info.loc_x && y == loc_info.loc_y)
-      html += '<td class = "soil"></td>'
-     else 
+      
+      }
+     } 
+     if(is_there == 0){
+       
+        for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
+    
+           
+            if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){
+                is_there = 1;
+                
+                html += '<td class = "soil"></td>'
+         
+            }
+
+        }
+    } 
+    if(is_there==0) {
+        is_there = 1;
+       
         html += '<td class = "nothing"></td>'
-  }
-  html += '</tr>';
+        
+    }
+  
+  
+
+}
+html += '</tr>';
 }
 html += '</table>';
 document.getElementById('playArea').innerHTML = html;
@@ -70,8 +99,7 @@ document.getElementById('playArea').innerHTML = html;
 
 </script>
     <body>
-      <p>Click any region in the map to conquer it. Then continue conquering adjacent regions.</p>
-<div id = "status" style = "color: green">Ready</div>
+      <p>test</p>
 <div id = 'playArea'></div>
 
 
