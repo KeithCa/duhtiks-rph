@@ -6,7 +6,7 @@ var player;
 
 // location Schema
 var LocSchema = mongoose.Schema({
-       
+
 	loc_x: {
 		type: Number
 	},
@@ -34,7 +34,7 @@ var Locations = module.exports = mongoose.model('Locations', LocSchema);
 // players Schema
 var PlSchema = mongoose.Schema({
 
-       
+
         user_id: {
             type: ObjectId
 
@@ -112,4 +112,10 @@ module.exports.getLocByxy = function(loc_x,loc_y, callback){
         "$lte": loc_y + 3
       } };
   Locations.find(query, callback);
+};
+
+module.exports.updatePlayerLoc = function(username, loc_x, loc_y, callback){
+  console.log("in update");
+	var query = {pl_name: username};
+  Players.update(query, { loc_x: loc_x, loc_y: loc_y }, callback);
 };

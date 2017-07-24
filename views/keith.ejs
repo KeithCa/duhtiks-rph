@@ -90,15 +90,13 @@ html += '</tr>';
 html += '</table>';
 document.getElementById('playArea').innerHTML = html;
 
-
-function move(direction){
-  if(direction=="up"){
-//need to figure out this
-  }
-}
-
-
 });
+function move(direction){
+  console.log(direction.id);
+  socket.emit("updateMap", {direction : direction.id});
+  }
+
+
 
 </script>
     <body>
