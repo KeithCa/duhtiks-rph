@@ -40,6 +40,7 @@ router.get('/keith', function(req, res){
 
 
 	socket.on('updateMap', function(direction){
+		console.log('updateMap called for : '+ req.user.username);
 		var moveDir = direction.direction;
 		Locations.getPlayerByUsername(req.user.username, function(err, player){
 			if(direction.name == req.user.username){
@@ -62,10 +63,12 @@ router.get('/keith', function(req, res){
 			socket.emit('updateYourMap');
 		});
 }
-
-
+		socket.broadcast.emit('updateYourMap');
 });
 	});
+	socket.on('disconnect', function() {
+		console.log("disconnect: ", socket.id);
+});
 });
 });
 module.exports = router;
