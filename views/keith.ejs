@@ -63,8 +63,17 @@
     var username = "<%= username %>";
     console.log(username);
     var socket = io();
+    setUsername();
+
+    function setUsername() {
+    socket.emit('add user', username);
+  }
+
+   socket.on('startMap', function (data) {
     socket.emit('getMap');
-    socket.on('heresTheMap', function (response){
+});
+
+socket.on('heresTheMap', function (response){
 
 
 var player_info = response.pl_info;
@@ -75,52 +84,52 @@ var is_there = 0;
 
 var html = '<table>';
 for(var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
-  html += '<tr>';
-  for(var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
-    is_there = 0;
-    if(is_there == 0){
-        if(x == player_info.loc_x && y == player_info.loc_y) {
-        is_there = 1;
-      html += '<td id = "cell'+x+'-'+y+'" class = "player"></td>'
-      }
-     }
+html += '<tr>';
+for(var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
+is_there = 0;
+if(is_there == 0){
+    if(x == player_info.loc_x && y == player_info.loc_y) {
+    is_there = 1;
+  html += '<td id = "cell'+x+'-'+y+'" class = "player"></td>'
+  }
+ }
 
 
-     if(is_there == 0){
-        for(var pl_count = 0; pl_count < chars_info.length; pl_count++) {
-            if(x == chars_info[pl_count].loc_x && y == chars_info[pl_count].loc_y){
-                is_there = 1;
-                html += '<td id = "cell'+x+'-'+y+'" class = "char"></td>'
-            }
+ if(is_there == 0){
+    for(var pl_count = 0; pl_count < chars_info.length; pl_count++) {
+        if(x == chars_info[pl_count].loc_x && y == chars_info[pl_count].loc_y){
+            is_there = 1;
+            html += '<td id = "cell'+x+'-'+y+'" class = "char"></td>'
         }
     }
+}
 
-     if(is_there == 0){
-        for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
-            if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){
-                is_there = 1;
-                html += '<td id = "cell'+x+'-'+y+'" class = "soil"></td>'
-            }
+ if(is_there == 0){
+    for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
+        if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){
+            is_there = 1;
+            html += '<td id = "cell'+x+'-'+y+'" class = "soil"></td>'
         }
     }
-    if(is_there==0) {
-        is_there = 1;
-        html += '<td id = "cell'+x+'-'+y+'"class = "nothing"></td>'
-    }
+}
+if(is_there==0) {
+    is_there = 1;
+    html += '<td id = "cell'+x+'-'+y+'"class = "nothing"></td>'
+}
 }
 html += '</tr>';
 }
 html += '</table>';
 document.getElementById('playArea').innerHTML = html;
-});
+});//end heresTheMap
+
 socket.on('updateYourMap', function (){
   socket.emit('getMap');
-});
+});//end updateYourMap
+
 function move(direction){
   socket.emit("updateMap", {direction : direction.id, name:username});
-  }
-
-
+}//end move function
 
 </script>
     <body>

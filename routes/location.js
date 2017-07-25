@@ -16,28 +16,35 @@ router.get('/keith', function(req, res){
  res.render('keith', {
 	 username : req.user.username
 });
-
  var io = req.app.get('socketio');
- io.on('connection', function(socket){
-	 console.log("Player : " + req.user.username + " has connected");
-  socket.on('getMap', function(){
+ io.on('connection', function (socket) {
+ 		var addedUser = false;
+		socket.on('add user', function (username) {
+				if (addedUser) return;
+// we store the username in the socket session for this client
+		socket.username = username;
+			addedUser = true;
+// echo globally (all clients) that a person has connected
+		console.log("User has joined : " + socket.username)
+		socket.emit('startMap',{username:socket.username});
+	});//end add user
+
+	socket.on('getMap', function(){
 		console.log("in getMap");
-   Locations.getPlayerByUsername(req.user.username, function(err, player){
-    var pl_x = player.loc_x;
-    var pl_y = player.loc_y;
+	 Locations.getPlayerByUsername(socket.username, function(err, player){
+		var pl_x = player.loc_x;
+		var pl_y = player.loc_y;
 
-    Locations.getPlayByxy(pl_x, pl_y, function(err, chars){
-
-
-   Locations.getLocByxy(pl_x, pl_y, function(err, result){
-
-   socket.emit('heresTheMap', {loc_info: result, pl_info:player, players:chars});
-  });
-  });
-  });
-  });
+		Locations.getPlayByxy(pl_x, pl_y, function(err, chars){
 
 
+	 Locations.getLocByxy(pl_x, pl_y, function(err, result){
+
+	 socket.emit('heresTheMap', {loc_info: result, pl_info:player, players:chars});
+ }); //end getLocBy
+	});//end getPlayByXY
+});//end getPlayerByusername
+	});//end getMap
 
 	socket.on('updateMap', function(direction){
 		console.log('updateMap called for : '+ req.user.username);
@@ -66,9 +73,7 @@ router.get('/keith', function(req, res){
 		socket.broadcast.emit('updateYourMap');
 });
 	});
-	socket.on('disconnect', function() {
-		console.log("disconnect: ", socket.id);
-});
-});
-});
+
+}); //end connection
+});//end render
 module.exports = router;
