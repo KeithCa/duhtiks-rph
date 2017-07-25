@@ -40,9 +40,9 @@ router.get('/keith', function(req, res){
 
 
 	socket.on('updateMap', function(direction){
-if(direction.name == req.user.username){
 		var moveDir = direction.direction;
 		Locations.getPlayerByUsername(req.user.username, function(err, player){
+			if(direction.name == req.user.username){
 			var pl_x = player.loc_x;
 			var pl_y = player.loc_y;
 		if(moveDir == "up"){
@@ -59,12 +59,12 @@ if(direction.name == req.user.username){
 		}
 
 		Locations.updatePlayerLoc(req.user.username, pl_x, pl_y, function(err, callback){
-			console.log(callback);
+			socket.emit('updateYourMap');
 		});
-		socket.emit('updateYourMap');
-});
-
 }
+
+
+});
 	});
 });
 });
