@@ -93,7 +93,6 @@ var Players = module.exports = mongoose.model('Players', PlSchema);
 
 
 module.exports.getPlayerByUsername = function(username, callback){
-  console.log("in function playerby"+username);
   player = Players;
 	var query = {pl_name: username};
 	Players.findOne(query, callback);

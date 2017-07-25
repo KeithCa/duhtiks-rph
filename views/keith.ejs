@@ -60,6 +60,8 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
+    var username = "<%= username %>";
+    console.log(username);
     var socket = io();
     socket.emit('getMap');
     socket.on('heresTheMap', function (response){
@@ -110,11 +112,12 @@ html += '</tr>';
 }
 html += '</table>';
 document.getElementById('playArea').innerHTML = html;
-
+});
+socket.on('updateYourMap', function (){
+  socket.emit('getMap');
 });
 function move(direction){
-  console.log(direction.id);
-  socket.emit("updateMap", {direction : direction.id});
+  socket.emit("updateMap", {direction : direction.id, name:username});
   }
 
 
