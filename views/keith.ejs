@@ -25,6 +25,15 @@
  background-color: #60B566;
 }
 
+.char {
+
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+ background-color: #5f42f4;
+}
+
 .nothing {
 
     width: 30px;
@@ -58,6 +67,7 @@
 
 var player_info = response.pl_info;
 var loc_info = response.loc_info;
+var chars_info = response.players;
 
 var is_there = 0;
 
@@ -72,6 +82,17 @@ for(var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
       html += '<td id = "cell'+x+'-'+y+'" class = "player"></td>'
       }
      }
+
+
+     if(is_there == 0){
+        for(var pl_count = 0; pl_count < chars_info.length; pl_count++) {
+            if(x == chars_info[pl_count].loc_x && y == chars_info[pl_count].loc_y){
+                is_there = 1;
+                html += '<td id = "cell'+x+'-'+y+'" class = "char"></td>'
+            }
+        }
+    }
+
      if(is_there == 0){
         for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
             if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){

@@ -23,8 +23,14 @@ var io = req.app.get('socketio');
    Locations.getPlayerByUsername(req.user.username, function(err, player){
     var pl_x = player.loc_x;
     var pl_y = player.loc_y;
+    
+    Locations.getPlayByxy(pl_x, pl_y, function(err, chars){
+        
+    
    Locations.getLocByxy(pl_x, pl_y, function(err, result){
-   socket.emit('heresTheMap', {loc_info: result, pl_info:player});
+       
+   socket.emit('heresTheMap', {loc_info: result, pl_info:player, players:chars});
+  });
   });
   });
   });
@@ -53,10 +59,12 @@ var io = req.app.get('socketio');
 		});
 		player.loc_y = pl_y;
 		player.loc_x = pl_x;
+                Locations.getPlayByxy(pl_x, pl_y, function(err, chars){
 		Locations.getLocByxy(pl_x, pl_y, function(err, result){
-		socket.emit('heresTheMap', {loc_info: result, pl_info:player});
+		socket.emit('heresTheMap', {loc_info: result, pl_info:player, players:chars});
 	 });
 	});
+        });
 	});
 });
 });

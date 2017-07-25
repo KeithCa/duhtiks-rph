@@ -114,6 +114,20 @@ module.exports.getLocByxy = function(loc_x,loc_y, callback){
   Locations.find(query, callback);
 };
 
+
+module.exports.getPlayByxy = function(loc_x,loc_y, callback){
+	var query = {"loc_x": {
+
+      "$gte": loc_x - 3,
+      "$lte": loc_x + 3
+
+    }, "loc_y": {
+        "$gte": loc_y - 3,
+        "$lte": loc_y + 3
+      } };
+  Players.find(query, callback);
+};
+
 module.exports.updatePlayerLoc = function(username, loc_x, loc_y, callback){
   console.log("in update");
 	var query = {pl_name: username};
