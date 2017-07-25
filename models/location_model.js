@@ -129,7 +129,7 @@ module.exports.getPlayByxy = function(loc_x,loc_y, callback){
 };
 
 module.exports.updatePlayerLoc = function(username, loc_x, loc_y, callback){
-  console.log("in update");
+  console.log("in update" + username);
 	var query = {pl_name: username};
   Players.update(query, { loc_x: loc_x, loc_y: loc_y }, callback);
 };
