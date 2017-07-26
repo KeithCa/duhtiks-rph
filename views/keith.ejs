@@ -10,6 +10,8 @@
 
     <script>
     var username = "<%= username %>";
+    var curX = 0;
+    var curY = 0;
     console.log(username);
     var socket = io();
     setUsername();
@@ -39,6 +41,8 @@ is_there = 0;
 if(is_there == 0){
     if(x == player_info.loc_x && y == player_info.loc_y) {
     is_there = 1;
+    curX = x;
+    curY = y;
   html += '<td id = "cell'+x+'-'+y+'" class = "player"></td>'
   }
  }
@@ -70,6 +74,7 @@ html += '</tr>';
 }
 html += '</table>';
 document.getElementById('playArea').innerHTML = html;
+checkButtons();
 });//end heresTheMap
 
 socket.on('updateYourMap', function (){
@@ -79,6 +84,33 @@ socket.on('updateYourMap', function (){
 function move(direction){
   socket.emit("updateMap", {direction : direction.id, name:username});
 }//end move function
+
+function checkButtons(){
+  if(document.getElementById("cell" + (curX+1) + "-" + curY).className == "nothing"){
+    document.getElementById("right").disabled = true;
+  }
+    else {
+      document.getElementById("right").disabled = false;
+    }
+  if(document.getElementById("cell" + (curX-1) + "-" + curY).className == "nothing"){
+    document.getElementById("left").disabled = true;
+  }
+    else {
+      document.getElementById("left").disabled = false;
+    }
+  if(document.getElementById("cell" + curX + "-" + (curY + 1)).className == "nothing"){
+    document.getElementById("up").disabled = true;
+  }
+    else {
+      document.getElementById("up").disabled = false;
+    }
+  if(document.getElementById("cell" + curX + "-" + (curY - 1)).className == "nothing"){
+    document.getElementById("down").disabled = true;
+  }
+    else {
+      document.getElementById("down").disabled = false;
+    }
+}
 
 </script>
     <body>
