@@ -91,8 +91,8 @@ app.set('port', (process.env.PORT || 3000));
 
 var server = app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
-  console.log('In index firebolt test' +spells.spells.firebolt.name)
+//  console.log('In index firebolt test' +spells.spells.firebolt.name)
 });
 
-var io = require('socket.io')(server);
+global.io = require('socket.io')(server);
 app.set('socketio', io);

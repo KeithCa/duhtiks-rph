@@ -1,56 +1,5 @@
 <% include layouts/header %>
-<style type="text/css">
-  td {
-    width: 30px;
-    height: 30px;
-  }
 
-  button{
-  height:25px;
-  width:50px;
-}
-#up{
-  margin-left: 25px;
-}
-#down{
-  margin-left: 25px;
-}
-
-  .player {
-
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
- background-color: #60B566;
-}
-
-.char {
-
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
- background-color: #5f42f4;
-}
-
-.nothing {
-
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
- background-color: #2d2228;
-}
-
-.soil {
- width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
- background-color: #7D5D16;
-}
-</style>
 <html>
     <head>
         <title>Tutorial</title>
@@ -135,11 +84,11 @@ function move(direction){
     <body>
 <div id = 'playArea'></div>
 <div id = 'moveButtons'>
-  <button type = "button" id ="up" onclick="move(this)" >Up</button>
+  <button class = "navbutton" id ="up" onclick="move(this)" >Up</button>
   <div id ="leftright">
-  <button type = "button" id ="left" onclick="move(this)">Left</button><button type = "button" id ="right" onclick="move(this)">Right</button>
+  <button class = "navbutton" id ="left" onclick="move(this)">Left</button><button class = "navbutton" id ="right" onclick="move(this)">Right</button>
 </div>
-  <button type = "button" id ="down" onclick="move(this)">Down</button>
+  <button class = "navbutton" id ="down" onclick="move(this)">Down</button>
 </div>
 
 

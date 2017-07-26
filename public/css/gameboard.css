@@ -1,0 +1,50 @@
+  td {
+    width: 30px;
+    height: 30px;
+  }
+
+.navbutton{
+  height:25px;
+  width:50px;
+}
+#up{
+  margin-left: 25px;
+}
+#down{
+  margin-left: 25px;
+}
+
+  .player {
+
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+ background-color: #60B566;
+}
+
+.char {
+
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+ background-color: #5f42f4;
+}
+
+.nothing {
+
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+ background-color: #2d2228;
+}
+
+.soil {
+ width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+ background-color: #7D5D16;
+}
