@@ -52,9 +52,9 @@ io.on('connection', function(socket) {
     console.log('updateMap called for : '+ req.user.username);
     var moveDir = direction.direction;
     Locations.getPlayerByUsername(req.user.username, function(err, player){
-      if(direction.name == req.user.username){
       var pl_x = player.loc_x;
       var pl_y = player.loc_y;
+      if(direction.name == req.user.username){
     if(moveDir == "up"){
       pl_y = pl_y + 1;
     }
@@ -67,15 +67,20 @@ io.on('connection', function(socket) {
     else if(moveDir == "left"){
       pl_x = pl_x - 1;
     }
-
+    Locations.checkLoc(pl_x, pl_y, function(err, found){
+      if(found != null){
     Locations.updatePlayerLoc(req.user.username, pl_x, pl_y, function(err, callback){
       socket.emit('updateYourMap');
     });
-  }
-    socket.broadcast.emit('updateYourMap');
-  });
-  });
 
+
+
+    socket.broadcast.emit('updateYourMap');
+  }
+});
+  }
+});
+});
 
   }); //end connection
   });//end render

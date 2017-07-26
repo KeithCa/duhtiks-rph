@@ -132,3 +132,8 @@ module.exports.updatePlayerLoc = function(username, loc_x, loc_y, callback){
 	var query = {pl_name: username};
   Players.update(query, { loc_x: loc_x, loc_y: loc_y }, callback);
 };
+
+module.exports.checkLoc = function(loc_x, loc_y, callback){
+	var query = {loc_x: loc_x, loc_y: loc_y};
+	Locations.findOne(query, callback);
+};
