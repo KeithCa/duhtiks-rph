@@ -6,8 +6,8 @@ var Locations = require('../models/location_model');
 
 
 
-router.get('/keith', function(req, res){
- res.render('keith', {
+router.get('/', function(req, res){
+ res.render('builder', {
 	 username : req.user.username
 });
  var io = req.app.get('socketio');
@@ -81,29 +81,6 @@ io.on('connection', function(socket) {
   }
 });
 });
-
-
-socket.on('update_loc', function(data) {
-    console.log(data);
-     var Locxy = data.id.split(":");
-    var locx = Locxy[0];
-    var locy = Locxy[1];
-    
-   Locations.updateLoc(locx, locy, function(err, callback){
-    socket.emit('updateYourMap');
-  });
-});
-  socket.on('create_loc', function(data) {
-    console.log(data);
-    
-    var Locxy = data.id.split(":");
-    var locx = Locxy[0];
-    var locy = Locxy[1];
-    
-    Locations.createLoc(locx, locy, function(err, callback){
-    socket.emit('updateYourMap');
-  });
-  });
 
   }); //end connection
   });//end render

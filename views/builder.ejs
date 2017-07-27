@@ -1,0 +1,106 @@
+<% include layouts/header %>
+
+<html>
+    <head>
+        <title>World Builder</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+    var username = "<%= username %>";
+    var curX = 0;
+    var curY = 0;
+    console.log(username);
+    var socket = io();
+    setUsername();
+
+    function setUsername() {
+        socket.emit('add user', username);
+    }
+
+    socket.on('startMap', function (data) {
+        socket.emit('getMap');
+    });
+
+    
+
+socket.on('heresTheMap', function (response){
+
+
+var player_info = response.pl_info;
+var loc_info = response.loc_info;
+var chars_info = response.players;
+
+var is_there = 0;
+
+var html = '<table>';
+for(var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
+html += '<tr>';
+for(var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
+is_there = 0;
+
+//for existing - update location
+ if(is_there == 0){
+    for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
+        if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){
+            is_there = 1;
+            html += '<td id = "'+x+':'+y+'" class = "soil" onclick="update_loc(this)"></td>'
+        }
+    }
+}
+//for nothing create location
+if(is_there==0) {
+    is_there = 1;
+    html += '<td id = "'+x+':'+y+'"class = "nothing" onclick="create_loc(this)"></td>'
+}
+}
+html += '</tr>';
+}
+html += '</table>';
+document.getElementById('playArea').innerHTML = html;
+
+});//end heresTheMap
+
+   
+   function update_loc(data){
+        socket.emit('update_loc, data');
+   };
+
+    function create_loc(data){
+        socket.emit('create_loc, data');
+   };
+
+socket.on('updateYourMap', function (){
+  socket.emit('getMap');
+});//end updateYourMap
+
+
+
+</script>
+    <body>
+<div id = 'playArea'></div>
+
+
+<div>
+    <label>Location type</label>
+    <select name='loc_env'>
+    <option value=1>Grass</option>
+    </select>
+</div>
+
+<div>
+    <label>Instance</label>
+    <select name='inst'>
+    <option value=0>World</option>
+    <option value=1>Solo</option>
+    </select>
+</div>
+
+
+
+    </body>
+</html>
+<% include layouts/footer %>
+

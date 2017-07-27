@@ -137,3 +137,33 @@ module.exports.checkLoc = function(loc_x, loc_y, callback){
 	var query = {loc_x: loc_x, loc_y: loc_y};
 	Locations.findOne(query, callback);
 };
+
+
+module.exports.updateLoc = function(locx, locy, callback){
+  console.log("in update" + locx + ":"+locy);
+	var query = {loc_x: locx, loc_y: locy};
+  Locations.update(query, { loc_x: locx, loc_y: locy }, callback);
+};
+
+module.exports.createLoc = function(locx, locy, callback){
+  console.log("create" + locx + ":"+locy);
+	var query = {loc_x: locx, loc_y: locy};
+  Locations.update(query, { loc_x: locx, loc_y: locy }, callback);
+};
+
+//Duh: for new player insert
+module.exports.createLoc = function(db,locx, locy, callback) {
+   db.collection('locations').insertOne( {
+
+    "loc_x" : locx,
+    "loc_y" : locy,
+    "loc_inst" : 0,
+    "loc_type" : 1,
+    "text" : "test",
+    "text_ru" : "test_ru"
+    
+   }, function(err, result) {
+    console.log("location inserted");
+    callback();
+  });
+};
