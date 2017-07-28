@@ -114,6 +114,21 @@ module.exports.getLocByxy = function(loc_x,loc_y, callback){
 };
 
 
+
+module.exports.getLocbuilder = function(loc_x,loc_y, callback){
+	var query = {"loc_x": {
+
+      "$gte": loc_x - 20,
+      "$lte": loc_x + 20
+
+    }, "loc_y": {
+        "$gte": loc_y - 20,
+        "$lte": loc_y + 20
+      } };
+  Locations.find(query, callback);
+};
+
+
 module.exports.getPlayByxy = function(loc_x,loc_y, callback){
 	var query = {"loc_x": {
 
@@ -145,25 +160,24 @@ module.exports.updateLoc = function(locx, locy, callback){
   Locations.update(query, { loc_x: locx, loc_y: locy }, callback);
 };
 
-module.exports.createLoc = function(locx, locy, callback){
-  console.log("create" + locx + ":"+locy);
-	var query = {loc_x: locx, loc_y: locy};
-  Locations.update(query, { loc_x: locx, loc_y: locy }, callback);
-};
 
 //Duh: for new player insert
-module.exports.createLoc = function(db,locx, locy, callback) {
-   db.collection('locations').insertOne( {
-
+module.exports.createLoc = function(locx, locy, callback) {
+  // Create an instance of model SomeModel
+var insert_loc = new Locations({ 
     "loc_x" : locx,
     "loc_y" : locy,
     "loc_inst" : 0,
     "loc_type" : 1,
     "text" : "test",
-    "text_ru" : "test_ru"
-    
-   }, function(err, result) {
-    console.log("location inserted");
-    callback();
-  });
+    "text_ru" : "test_ru" });
+
+// Save the new model instance, passing a callback
+insert_loc.save(function (err) {
+  if (err) return handleError(err);
+  // saved!
+});
 };
+
+
+

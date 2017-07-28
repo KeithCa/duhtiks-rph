@@ -40,7 +40,7 @@ io.on('connection', function(socket) {
     Locations.getPlayByxy(pl_x, pl_y, function(err, chars){
 
 
-   Locations.getLocByxy(pl_x, pl_y, function(err, result){
+   Locations.getLocbuilder(pl_x, pl_y, function(err, result){
 
    socket.emit('heresTheMap', {loc_info: result, pl_info:player, players:chars});
   }); //end getLocBy
@@ -72,6 +72,8 @@ io.on('connection', function(socket) {
     Locations.updatePlayerLoc(req.user.username, pl_x, pl_y, function(err, callback){
       socket.emit('updateYourMap');
     });
+    
+    
 
 
 
@@ -81,6 +83,33 @@ io.on('connection', function(socket) {
   }
 });
 });
+
+
+socket.on('update_loc', function(data) {
+    console.log(data);
+     var Locxy = data.split(':');
+    var locx = Locxy[0];
+    var locy = Locxy[1];
+    
+   Locations.updateLoc(locx, locy, function(err, callback){
+    socket.emit('updateYourMap');
+     socket.broadcast.emit('updateYourMap');
+  });
+  socket.emit('updateYourMap');
+});
+  socket.on('create_loc', function(data) {
+    console.log(data);
+    
+    var Locxy = data.split(':');
+    var locx = Locxy[0];
+    var locy = Locxy[1];
+    
+    Locations.createLoc(locx, locy, function(err, callback){
+    socket.emit('updateYourMap');
+     socket.broadcast.emit('updateYourMap');
+  });
+  socket.emit('updateYourMap');
+  });
 
   }); //end connection
   });//end render
