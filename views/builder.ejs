@@ -21,7 +21,10 @@
     }
 
  function update_loc(data){
-        socket.emit('update_loc', data);
+   var e = document.getElementById('loc_env');
+   var loc_type = e.options[e.selectedIndex].value;
+   console.log(loc_type);
+   socket.emit('update_loc', data, loc_type);
    };
 
     function create_loc(data){
@@ -56,8 +59,13 @@ is_there = 0;
  if(is_there == 0){
     for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
         if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){
-            is_there = 1;
+          is_there = 1;          
+            if(loc_info[loc_count].loc_type == 1){
             html += '<td id = "'+x+':'+y+'" class = "soil_b" onclick="update_loc(this.id)"></td>'
+          }
+            else if(loc_info[loc_count].loc_type == 2){
+            html += '<td id = "'+x+':'+y+'" class = "grass_b" onclick="update_loc(this.id)"></td>'
+          }
         }
     }
 }

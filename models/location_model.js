@@ -154,10 +154,10 @@ module.exports.checkLoc = function(loc_x, loc_y, callback){
 };
 
 
-module.exports.updateLoc = function(locx, locy, callback){
+module.exports.updateLoc = function(locx, locy, type, callback){
   console.log("in update" + locx + ":"+locy);
 	var query = {loc_x: locx, loc_y: locy};
-  Locations.update(query, { loc_x: locx, loc_y: locy }, callback);
+  Locations.update(query, { loc_x: locx, loc_y: locy, loc_type:type }, callback);
 };
 
 
@@ -172,9 +172,8 @@ var insert_loc = new Locations({
     "text" : "test",
     "text_ru" : "test_ru" });
 Locations.findOneAndUpdate(
-
             {
-              "loc_x" : locx,
+    "loc_x" : locx,
     "loc_y" : locy,
     "loc_inst" : 0,
     "loc_type" : 1,

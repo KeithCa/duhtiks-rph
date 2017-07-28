@@ -85,17 +85,16 @@ io.on('connection', function(socket) {
 });
 
 
-socket.on('update_loc', function(data) {
+socket.on('update_loc', function(data, type) {
     console.log(data);
      var Locxy = data.split(':');
     var locx = Locxy[0];
     var locy = Locxy[1];
 
-   Locations.updateLoc(locx, locy, function(err, callback){
+   Locations.updateLoc(locx, locy, type, function(err, callback){
     socket.emit('updateYourMap');
      socket.broadcast.emit('updateYourMap');
   });
-  socket.emit('updateYourMap');
 });
   socket.on('create_loc', function(data, type) {
     console.log(type);
@@ -104,11 +103,10 @@ socket.on('update_loc', function(data) {
     var locx = Locxy[0];
     var locy = Locxy[1];
 
-    Locations.createLoc(locx, locy, type function(err, callback){
+    Locations.createLoc(locx, locy, type, function(err, callback){
     socket.emit('updateYourMap');
      socket.broadcast.emit('updateYourMap');
   });
-  socket.emit('updateYourMap');
   });
 
   }); //end connection

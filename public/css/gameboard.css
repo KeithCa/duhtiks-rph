@@ -30,7 +30,7 @@
     font-size: 20px;
     text-align: center;
  background-color: #5f42f4;
- 
+
 }
 
 .nothing {
@@ -40,7 +40,7 @@
     font-size: 20px;
     text-align: center;
  background-color: #2d2228;
- border: 1px solid white;  
+ border: 1px solid white;
 border-color:#ff0000;
 }
 
@@ -50,7 +50,7 @@ border-color:#ff0000;
     font-size: 20px;
     text-align: center;
  background-color: #7D5D16;
- border: 1px solid white;  
+ border: 1px solid white;
 border-color:#ff0000;
 }
 .nothing_b {
@@ -60,7 +60,7 @@ border-color:#ff0000;
     font-size: 15px;
     text-align: center;
  background-color: #2d2228;
- border: 1px solid white;  
+ border: 1px solid white;
 border-color:#ff0000;
 }
 
@@ -70,6 +70,26 @@ border-color:#ff0000;
     font-size: 15px;
     text-align: center;
  background-color: #7D5D16;
- border: 1px solid white;  
+ border: 1px solid white;
 border-color:#ff0000;
+}
+
+.grass{
+  width: 30px;
+     height: 30px;
+     font-size: 20px;
+     text-align: center;
+  background-color: #228B22;
+  border: 1px solid white;
+ border-color:#ff0000;
+}
+
+.grass_b{
+  width: 15px;
+     height: 15px;
+     font-size: 15px;
+     text-align: center;
+  background-color: #228B22;
+  border: 1px solid white;
+ border-color:#ff0000;
 }
