@@ -162,25 +162,25 @@ module.exports.updateLoc = function(locx, locy, callback){
 
 
 //Duh: for new player insert
-module.exports.createLoc = function(locx, locy, callback) {
+module.exports.createLoc = function(locx, locy, type, callback) {
   // Create an instance of model SomeModel
-var insert_loc = new Locations({ 
+var insert_loc = new Locations({
     "loc_x" : locx,
     "loc_y" : locy,
     "loc_inst" : 0,
-    "loc_type" : 1,
+    "loc_type" : type,
     "text" : "test",
     "text_ru" : "test_ru" });
 Locations.findOneAndUpdate(
-        
+
             {
               "loc_x" : locx,
     "loc_y" : locy,
     "loc_inst" : 0,
     "loc_type" : 1,
     "text" : "test",
-    "text_ru" : "test_ru"  
-                
+    "text_ru" : "test_ru"
+
             },
     insert_loc, // document to insert when nothing was found
     {upsert: true, new: true}, // options
@@ -191,10 +191,8 @@ Locations.findOneAndUpdate(
             // handle document
         }
     }
-    
-        
+
+
             );
 
 };
-
-

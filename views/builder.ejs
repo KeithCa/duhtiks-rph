@@ -25,14 +25,17 @@
    };
 
     function create_loc(data){
-        socket.emit('create_loc', data);
+        var e = document.getElementById('loc_env');
+        var loc_type = e.options[e.selectedIndex].value;
+        console.log(loc_type);
+        socket.emit('create_loc', data, loc_type);
    };
 
     socket.on('startMap', function (data) {
         socket.emit('getMap');
     });
 
-    
+
 
 socket.on('heresTheMap', function (response){
 
@@ -71,8 +74,8 @@ document.getElementById('playArea').innerHTML = html;
 
 });//end heresTheMap
 
-   
-  
+
+
 
 socket.on('updateYourMap', function (){
   socket.emit('getMap');
@@ -87,14 +90,15 @@ socket.on('updateYourMap', function (){
 
 <div>
     <label>Location type</label>
-    <select name='loc_env'>
-    <option value=1>Grass</option>
+    <select id='loc_env'>
+    <option value=1>Soil</option>
+    <option value=2>Grass</option>
     </select>
 </div>
 
 <div>
     <label>Instance</label>
-    <select name='inst'>
+    <select id='inst'>
     <option value=0>World</option>
     <option value=1>Solo</option>
     </select>
@@ -105,4 +109,3 @@ socket.on('updateYourMap', function (){
     </body>
 </html>
 <% include layouts/footer %>
-

@@ -72,8 +72,8 @@ io.on('connection', function(socket) {
     Locations.updatePlayerLoc(req.user.username, pl_x, pl_y, function(err, callback){
       socket.emit('updateYourMap');
     });
-    
-    
+
+
 
 
 
@@ -90,21 +90,21 @@ socket.on('update_loc', function(data) {
      var Locxy = data.split(':');
     var locx = Locxy[0];
     var locy = Locxy[1];
-    
+
    Locations.updateLoc(locx, locy, function(err, callback){
     socket.emit('updateYourMap');
      socket.broadcast.emit('updateYourMap');
   });
   socket.emit('updateYourMap');
 });
-  socket.on('create_loc', function(data) {
-    console.log(data);
-    
+  socket.on('create_loc', function(data, type) {
+    console.log(type);
+
     var Locxy = data.split(':');
     var locx = Locxy[0];
     var locy = Locxy[1];
-    
-    Locations.createLoc(locx, locy, function(err, callback){
+
+    Locations.createLoc(locx, locy, type function(err, callback){
     socket.emit('updateYourMap');
      socket.broadcast.emit('updateYourMap');
   });
