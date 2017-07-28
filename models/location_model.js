@@ -171,13 +171,30 @@ var insert_loc = new Locations({
     "loc_type" : 1,
     "text" : "test",
     "text_ru" : "test_ru" });
+Locations.findOneAndUpdate(
+        
+            {
+              "loc_x" : locx,
+    "loc_y" : locy,
+    "loc_inst" : 0,
+    "loc_type" : 1,
+    "text" : "test",
+    "text_ru" : "test_ru"  
+                
+            },
+    insert_loc, // document to insert when nothing was found
+    {upsert: true, new: true}, // options
+    function (err, doc) { // callback
+        if (err) {
+            // handle error
+        } else {
+            // handle document
+        }
+    }
+    
+        
+            );
 
-// Save the new model instance, passing a callback
-insert_loc.save(function (err) {
-  if (err) return handleError(err);
-  // saved!
-});
 };
-
 
 
