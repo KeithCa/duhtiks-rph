@@ -60,8 +60,13 @@ if(is_there == 0){
  if(is_there == 0){
     for(var loc_count = 0; loc_count < loc_info.length; loc_count++) {
         if(x == loc_info[loc_count].loc_x && y == loc_info[loc_count].loc_y){
-            is_there = 1;
-            html += '<td id = "cell'+x+'-'+y+'" class = "soil"></td>'
+          is_there = 1;
+            if(loc_info[loc_count].loc_type == 1){
+            html += '<td id = "cell'+x+'-'+y+'" class = "soil" ></td>'
+          }
+            else if(loc_info[loc_count].loc_type == 2){
+            html += '<td id = "cell'+x+'-'+y+'" class = "grass"></td>'
+          }
         }
     }
 }
@@ -86,25 +91,25 @@ function move(direction){
 }//end move function
 
 function checkButtons(){
-  if(document.getElementById("cell" + (curX+1) + "-" + curY).className == "nothing"){
+  if(document.getElementById("cell" + (curX+1) + "-" + curY).className == "nothing" || document.getElementById("cell" + (curX+1) + "-" + curY).className == "char"){
     document.getElementById("right").disabled = true;
   }
     else {
       document.getElementById("right").disabled = false;
     }
-  if(document.getElementById("cell" + (curX-1) + "-" + curY).className == "nothing"){
+  if(document.getElementById("cell" + (curX-1) + "-" + curY).className == "nothing" || document.getElementById("cell" + (curX-1) + "-" + curY).className == "char"){
     document.getElementById("left").disabled = true;
   }
     else {
       document.getElementById("left").disabled = false;
     }
-  if(document.getElementById("cell" + curX + "-" + (curY + 1)).className == "nothing"){
+  if(document.getElementById("cell" + curX + "-" + (curY + 1)).className == "nothing" || document.getElementById("cell" + curX + "-" + (curY + 1)).className == "char"){
     document.getElementById("up").disabled = true;
   }
     else {
       document.getElementById("up").disabled = false;
     }
-  if(document.getElementById("cell" + curX + "-" + (curY - 1)).className == "nothing"){
+  if(document.getElementById("cell" + curX + "-" + (curY - 1)).className == "nothing" || document.getElementById("cell" + curX + "-" + (curY - 1)).className == "char"){
     document.getElementById("down").disabled = true;
   }
     else {
@@ -127,4 +132,3 @@ function checkButtons(){
 
     </body>
 </html>
-<% include layouts/footer %>
