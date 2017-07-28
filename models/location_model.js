@@ -176,7 +176,7 @@ Locations.findOneAndUpdate(
     "loc_x" : locx,
     "loc_y" : locy,
     "loc_inst" : 0,
-    "loc_type" : 1,
+    "loc_type" : type,
     "text" : "test",
     "text_ru" : "test_ru"
 

@@ -92,9 +92,10 @@ socket.on('update_loc', function(data, type) {
     var locy = Locxy[1];
 
    Locations.updateLoc(locx, locy, type, function(err, callback){
-    socket.emit('updateYourMap');
-     socket.broadcast.emit('updateYourMap');
+    
   });
+  socket.emit('updateYourMap');
+     
 });
   socket.on('create_loc', function(data, type) {
     console.log(type);
@@ -104,9 +105,10 @@ socket.on('update_loc', function(data, type) {
     var locy = Locxy[1];
 
     Locations.createLoc(locx, locy, type, function(err, callback){
-    socket.emit('updateYourMap');
-     socket.broadcast.emit('updateYourMap');
+   
   });
+   socket.emit('updateYourMap');
+    
   });
 
   }); //end connection
