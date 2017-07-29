@@ -12,6 +12,7 @@
     var username = "<%= username %>";
     var curX = 0;
     var curY = 0;
+    var selected;
     console.log(username);
     var socket = io();
     setUsername();
@@ -33,7 +34,7 @@ var chars_info = response.players;
 
 var is_there = 0;
 
-var html = '<table>';
+var html = '<table id = "mapTable">';
 for(var y = player_info.loc_y+3; y >= player_info.loc_y-3; y--) {
 html += '<tr>';
 for(var x = player_info.loc_x-3; x <= player_info.loc_x+3; x++) {
@@ -78,7 +79,19 @@ if(is_there==0) {
 html += '</tr>';
 }
 html += '</table>';
+var lastClicked;
 document.getElementById('playArea').innerHTML = html;
+$(document).ready(function(){
+$('#playArea #mapTable td').on('click', function() {
+  if(lastClicked){
+    lastClicked.toggleClass('selected');
+  }
+    $(this).toggleClass('selected');
+    lastClicked = $(this);
+    selected = $(this).attr('id')
+    console.log(selected);
+});
+});
 checkButtons();
 });//end heresTheMap
 
@@ -88,6 +101,10 @@ socket.on('updateYourMap', function (){
 
 function move(direction){
   socket.emit("updateMap", {direction : direction.id, name:username});
+}//end move function
+
+function attack(){
+  console.log(selected);
 }//end move function
 
 function checkButtons(){
@@ -117,9 +134,13 @@ function checkButtons(){
     }
 }
 
+
 </script>
     <body>
 <div id = 'playArea'></div>
+<div id = 'commandButtons'>
+  <button class 'attackButton' id="attack" onclick ="attack()">Attack</button>
+</div>
 <div id = 'moveButtons'>
   <button class = "navbutton" id ="up" onclick="move(this)" >Up</button>
   <div id ="leftright">
@@ -127,6 +148,7 @@ function checkButtons(){
 </div>
   <button class = "navbutton" id ="down" onclick="move(this)">Down</button>
 </div>
+
 
 
 

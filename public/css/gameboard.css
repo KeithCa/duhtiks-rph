@@ -3,6 +3,12 @@
     height: 30px;
   }
 
+  table
+  {
+      margin-left: auto;
+      margin-right: auto;
+  }
+
 .navbutton{
   height:25px;
   width:50px;
@@ -12,6 +18,17 @@
 }
 #down{
   margin-left: 25px;
+}
+#moveButtons{
+  display:inline-block;
+  margin-left: 500px;
+}
+#commandButtons{
+  display:inline-block;
+}
+.attackButton{
+  height:25px;
+  width:50px;
 }
 
   .player {
@@ -92,4 +109,8 @@ border-color:#ff0000;
   background-color: #228B22;
   border: 1px solid white;
  border-color:#ff0000;
+}
+
+.selected{
+  border:2px solid white;
 }
