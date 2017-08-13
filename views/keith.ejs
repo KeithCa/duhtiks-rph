@@ -101,6 +101,7 @@ socket.on('updateYourMap', function (){
 
 function move(direction){
   socket.emit("updateMap", {direction : direction.id, name:username});
+   socket.emit('checkSpawn');
 }//end move function
 
 function attack(){

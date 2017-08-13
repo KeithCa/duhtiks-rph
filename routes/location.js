@@ -3,7 +3,7 @@ var router = express.Router();
 var model = require('../models/model');
 var map = require('../models/keith_map_model');
 var Locations = require('../models/location_model');
-
+var Creatures = require('../models/creatures_model');
 
 
 router.get('/keith', function(req, res){
@@ -81,6 +81,26 @@ io.on('connection', function(socket) {
   }
 });
 });
+
+
+//check spawn
+ socket.on('checkSpawn', function(){
+    console.log("checking spawn");
+   Creatures.checkCrSpawn(function(err, creatures){
+    var pl_x = creatures.loc_x;
+    var pl_y = creatures.loc_y;
+
+    Locations.getPlayByxy(pl_x, pl_y, function(err, chars){
+
+
+   Locations.getLocByxy(pl_x, pl_y, function(err, result){
+
+  
+  }); //end getLocBy
+  });//end getPlayByXY
+  });//end getPlayerByusername
+  });//end getMap
+
 
 
 
